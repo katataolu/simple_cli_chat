@@ -3,7 +3,6 @@ defmodule CliChat.RoomUser do
   import Ecto.Changeset
 
   schema "room_users" do
-
     field :user_id, :id
     field :room_id, :id
 

@@ -23,7 +23,9 @@ defmodule CliChat.NotificationsTest do
     test "create_notification/1 with valid data creates a notification" do
       valid_attrs = %{seen: true}
 
-      assert {:ok, %Notification{} = notification} = Notifications.create_notification(valid_attrs)
+      assert {:ok, %Notification{} = notification} =
+               Notifications.create_notification(valid_attrs)
+
       assert notification.seen == true
     end
 
@@ -35,13 +37,18 @@ defmodule CliChat.NotificationsTest do
       notification = notification_fixture()
       update_attrs = %{seen: false}
 
-      assert {:ok, %Notification{} = notification} = Notifications.update_notification(notification, update_attrs)
+      assert {:ok, %Notification{} = notification} =
+               Notifications.update_notification(notification, update_attrs)
+
       assert notification.seen == false
     end
 
     test "update_notification/2 with invalid data returns error changeset" do
       notification = notification_fixture()
-      assert {:error, %Ecto.Changeset{}} = Notifications.update_notification(notification, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Notifications.update_notification(notification, @invalid_attrs)
+
       assert notification == Notifications.get_notification!(notification.id)
     end
 
