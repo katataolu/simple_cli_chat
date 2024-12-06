@@ -1,0 +1,19 @@
+# Elixir build artifacts
+/_build
+/deps
+/*.ez
+
+# Editor files
+*.swp
+*.swo
+.vscode/
+*.iml
+
+# Erlang/OTP crash dumps
+erl_crash.dump
+
+# Secrets
+.secret.key
+
+# Elixir language server (ElixirLS)
+.elixir_ls/
