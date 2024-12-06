@@ -17,6 +17,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+     # Переход в нужную папку (cli_chat)
+      - name: Change directory to cli_chat
+        run: cd simple_cli_chat/cli_chat
+
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
         with:
