@@ -29,6 +29,13 @@ jobs:
         run: |
           cd ./cli_chat
           mix deps.get
+      
+       # Настройка подключения к базе данных для тестов
+      - name: Set up database
+        run: |
+          cd ./cli_chat
+          mix ecto.create
+          mix ecto.migrate
 
       # Проверка форматирования кода
       - name: Check formatting
