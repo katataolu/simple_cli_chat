@@ -13,28 +13,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Устанавливаем зависимости
+      # Проверка кода из репозитория
       - name: Checkout code
         uses: actions/checkout@v3
 
-     # Переход в нужную папку (cli_chat)
-      - name: Change directory to cli_chat
-        run: cd ./cli_chat
-
+      # Устанавливаем Elixir
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
         with:
           elixir-version: '1.14' 
-          otp-version: '26'     
+          otp-version: '26'
 
-      # Устанавливаем зависимости проекта
+      # Переход в нужную директорию и установка зависимостей
       - name: Install dependencies
-        run: mix deps.get
+        run: |
+          cd ./cli_chat
+          mix deps.get
 
       # Проверка форматирования кода
       - name: Check formatting
-        run: mix format --check-formatted
+        run: |
+          cd ./cli_chat
+          mix format --check-formatted
 
       # Запуск тестов
       - name: Run tests
-        run: mix test
+        run: |
+          cd ./cli_chat
+          mix test
