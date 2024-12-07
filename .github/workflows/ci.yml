@@ -12,6 +12,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: cli_chat_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       # Проверка кода из репозитория
       - name: Checkout code
@@ -29,6 +44,14 @@ jobs:
         run: |
           cd ./cli_chat
           mix deps.get
+
+        # Ожидание готовности базы данных
+      - name: Wait for Postgres to be ready
+        run: |
+          until pg_isready -h localhost -U postgres -d cli_chat_test; do
+            echo "Waiting for Postgres..."
+            sleep 2
+          done
       
        # Настройка подключения к базе данных для тестов
       - name: Set up database
